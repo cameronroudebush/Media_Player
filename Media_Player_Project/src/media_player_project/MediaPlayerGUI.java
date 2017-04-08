@@ -130,14 +130,22 @@ public class MediaPlayerGUI extends Application{
         
         skipForward.setOnAction(e->{
             int index = fileList.indexOf(mediaPlayer.getMedia()) + 1;
+            if (index > fileList.size()){
+                index = 0;
+            }
             Media media = new Media(new File(lv.getItems().get(index).toString()).toURI().toString());
             this.mediaPlayer = new MediaPlayer(media);
+            this.mediaPlayer.play();
         });
         
         skipBackward.setOnAction(e->{
            int index = fileList.indexOf(mediaPlayer.getMedia()) - 1;
+           if (index < 0){
+                index = fileList.size()-1;
+            }
            Media media = new Media(new File(lv.getItems().get(index).toString()).toURI().toString());
            this.mediaPlayer = new MediaPlayer(media);
+           this.mediaPlayer.play();
         });
         
         mainPane.add(skipBackward, 0, 1);
