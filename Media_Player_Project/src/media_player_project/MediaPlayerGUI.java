@@ -26,9 +26,17 @@ public class MediaPlayerGUI extends Application{
         GridPane mainPane = new GridPane();
         mainPane.setHgap(20);
         mainPane.setVgap(20);
+        
         Button playButton = new Button();
-        playButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "playButton.png"))));
-        mainPane.add(playButton, 0, 0);
+        
+        Image playImage = new Image(new FileInputStream("mediaPlayerButtons") + File.separator + "playButton.png");
+        playButton.setGraphic(new ImageView(playImage));
+        
+        Button skipButton = new Button();
+        skipButton.setGraphic(new ImageView(new Image( new FileInputStream("mediaPlayerButtons" + File.separator + "fastForward.png"))));
+        
+        mainPane.add(playButton, 1, 0);
+        mainPane.add(skipButton, 2, 0);
         
         Scene scene = new Scene(mainPane, 300,300);
         primaryStage.setScene(scene);
