@@ -103,9 +103,9 @@ public class MediaPlayerGUI extends Application{
         buttonList.add(pauseButton);
         buttonList.add(skipBackward);
 
-        for (Button b : buttonList) {
+        buttonList.forEach((b) -> {
             b.setPadding(Insets.EMPTY);
-        }
+        });
         
         playButton.setOnAction(e ->{
             if(lv.getSelectionModel().getSelectedItem()==null){
@@ -131,13 +131,13 @@ public class MediaPlayerGUI extends Application{
         skipForward.setOnAction(e->{
             int index = fileList.indexOf(mediaPlayer.getMedia()) + 1;
             Media media = new Media(new File(lv.getItems().get(index).toString()).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            this.mediaPlayer = new MediaPlayer(media);
         });
         
         skipBackward.setOnAction(e->{
            int index = fileList.indexOf(mediaPlayer.getMedia()) - 1;
            Media media = new Media(new File(lv.getItems().get(index).toString()).toURI().toString());
-           MediaPlayer mediaPlayer = new MediaPlayer(media);
+           this.mediaPlayer = new MediaPlayer(media);
         });
         
         mainPane.add(skipBackward, 0, 1);
