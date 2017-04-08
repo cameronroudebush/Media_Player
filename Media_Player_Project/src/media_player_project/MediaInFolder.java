@@ -6,16 +6,10 @@ public class MediaInFolder {
     private File folder;
     private File[] listOfFiles;
 
-    public MediaInFolder(File folder) {
+    public MediaInFolder(String folderDirectory) {
+        File folder = new File(folderDirectory);
         this.folder = folder;
-        this.listOfFiles = folder.listFiles();
-        for (File listOfFile : listOfFiles) {
-            if (listOfFile.isFile()) {
-                System.out.println("File: " + listOfFile);
-            } else if (listOfFile.isDirectory()) {
-                System.out.println("Directory: " + listOfFile);
-            }
-        }
+        this.listOfFiles = this.folder.listFiles();
     }
 
     public File[] getListOfFiles() {

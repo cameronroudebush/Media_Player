@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -27,18 +31,30 @@ public class MediaPlayerGUI extends Application{
         mainPane.setHgap(20);
         mainPane.setVgap(20);
         
+        mainPane.setPadding(new Insets(10,5,5,10)); // top, , ,left
+        
+        MediaInFolder files = new MediaInFolder("mediaPlayerButtons" + File.separator);
+        ObservableList fileList = FXCollections.observableArrayList(files.getListOfFiles());
+        ListView lv = new ListView<>(fileList);
+        lv.setEditable(false);
+        mainPane.add(lv, 0, 1,3,1);
+        
+        Button skipBackward = new Button();
+        skipBackward.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "fastBackward.png"))));
+        
         Button playButton = new Button();
+        playButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "playButton.png"))));
         
-        Image playImage = new Image(new FileInputStream("mediaPlayerButtons") + File.separator + "playButton.png");
-        playButton.setGraphic(new ImageView(playImage));
         
-        Button skipButton = new Button();
-        skipButton.setGraphic(new ImageView(new Image( new FileInputStream("mediaPlayerButtons" + File.separator + "fastForward.png"))));
+        Button skipForward = new Button();
+        skipForward.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "fastForward.png"))));
         
+        mainPane.add(skipBackward, 0, 0);
         mainPane.add(playButton, 1, 0);
-        mainPane.add(skipButton, 2, 0);
+        mainPane.add(skipForward, 2, 0);
+
         
-        Scene scene = new Scene(mainPane, 300,300);
+        Scene scene = new Scene(mainPane, 600,300);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Media Player");
         primaryStage.show();
