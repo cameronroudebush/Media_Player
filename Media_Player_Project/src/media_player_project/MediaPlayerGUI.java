@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,10 +26,6 @@ import javax.swing.JFrame;
  */
 public class MediaPlayerGUI extends Application{
     
-    private static MediaInFolder files = new MediaInFolder("AudioFiles" + File.separator);
-    private static ObservableList fileList = FXCollections.observableArrayList(files.getListOfFiles());
-    private static ListView<String> lv = new ListView<>(fileList);
-
     private String directory = "C:" + File.separator;
     
     public static void main(String[] args) {
@@ -45,18 +39,11 @@ public class MediaPlayerGUI extends Application{
         mainPane.setVgap(20);
 
         mainPane.setPadding(new Insets(10, 5, 5, 10)); // top, , ,left
-        
-<<<<<<< HEAD
-        mainPane.setPadding(new Insets(10,5,5,10)); // top, , ,left
-        
-        
-=======
         MediaInFolder files = new MediaInFolder(this.directory);
-        ObservableList fileList = FXCollections.observableArrayList(files.getListOfFiles());
-        ListView lv = new ListView<>(fileList);
->>>>>>> origin/WIP
+        ObservableList<File> fileList = FXCollections.observableArrayList(files.getListOfFiles());
+        ListView<File> lv = new ListView<>(fileList);
         lv.setEditable(false);
-        mainPane.add(lv, 0, 2,6,1);
+        mainPane.add(lv, 0, 3,6,1);
         
         Button browse = new Button("Browse");
         mainPane.add(browse, 0, 1, 2, 1);
@@ -70,7 +57,7 @@ public class MediaPlayerGUI extends Application{
                     this.directory = fileChooser.getSelectedFile().toString();
                     files.setFolder(directory);
                     fileList.clear();
-                    fileList.addAll((Object[]) files.getListOfFiles());
+                    fileList.addAll( files.getListOfFiles());
                 }
         });
         
@@ -79,7 +66,11 @@ public class MediaPlayerGUI extends Application{
         
         Button playButton = new Button();
         playButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "playButton.png"))));
-
+        playButton.setOnAction(e ->{
+            Media media = new Media(new File(lv.getSelectionModel().getSelectedItem().toString()).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.play();
+        });
         
         Button skipForward = new Button();
         Image skipImage = new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "fastForward.png"));
@@ -95,7 +86,7 @@ public class MediaPlayerGUI extends Application{
             b.setPadding(Insets.EMPTY);
         }
         
-        playButton.setOnAction(new buttonEvent());
+//        playButton.setOnAction(new buttonEvent());
         
         mainPane.add(skipBackward, 0, 0);
         mainPane.add(playButton, 1, 0);
@@ -110,21 +101,4 @@ public class MediaPlayerGUI extends Application{
             System.exit(0);
         });
     }
-
-    private static class buttonEvent implements EventHandler<ActionEvent> {
-
-        public buttonEvent() {
-        }
-
-        @Override
-        public void handle(ActionEvent event) {
-            Media song = new Media(new File(lv.getSelectionModel().getSelectedItem()).toURI().toString());
-            
-            String bip = "dumbSound.wav";
-            Media hit = new Media(new File(bip).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(hit);
-            mediaPlayer.play();
-        }
-    }
-    
 }
