@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -26,11 +30,23 @@ public class MediaPlayerGUI extends Application{
         GridPane mainPane = new GridPane();
         mainPane.setHgap(20);
         mainPane.setVgap(20);
-        Button playButton = new Button();
-        playButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "playButton.png"))));
-        mainPane.add(playButton, 0, 0);
+        mainPane.setPadding(new Insets(10,5,5,10)); // top, , ,left
         
-        Scene scene = new Scene(mainPane, 300,300);
+        MediaInFolder files = new MediaInFolder("mediaPlayerButtons" + File.separator);
+        ObservableList fileList = FXCollections.observableArrayList(files.getListOfFiles());
+        ListView lv = new ListView<>(fileList);
+        lv.setEditable(false);
+        mainPane.add(lv, 0, 1,3,1);
+        
+        Button skipBackward = new Button();
+        Button playButton = new Button();
+        Button skipForward = new Button();
+//        playButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "playButton.png"))));
+        mainPane.add(skipBackward, 0, 0);
+        mainPane.add(playButton, 1, 0);
+        mainPane.add(skipForward, 2, 0);
+        
+        Scene scene = new Scene(mainPane, 600,300);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Media Player");
         primaryStage.show();
