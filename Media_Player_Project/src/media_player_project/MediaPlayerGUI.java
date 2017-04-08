@@ -3,6 +3,7 @@ package media_player_project;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +48,20 @@ public class MediaPlayerGUI extends Application{
         
         
         Button skipForward = new Button();
-        skipForward.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "fastForward.png"))));
+        Image skipImage = new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "fastForward.png"));
+        skipForward.setGraphic(new ImageView(skipImage));
+
+        
+        ArrayList<Button> buttonList= new ArrayList<>();
+        buttonList.add(skipForward);
+        buttonList.add(playButton);
+        buttonList.add(skipBackward);
+        
+        for(Button b : buttonList){
+            b.setPadding(Insets.EMPTY);
+        }
+        
+        playButton.setOnAction(new buttonEvent());
         
         mainPane.add(skipBackward, 0, 0);
         mainPane.add(playButton, 1, 0);
