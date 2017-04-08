@@ -3,8 +3,6 @@ package media_player_project;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,18 +27,12 @@ import javax.swing.JFrame;
  *
  * @author Cameron Roudebush, Brynden Williams
  */
-<<<<<<< HEAD
+
 public class MediaPlayerGUI extends Application{
     
-    private String directory = "C:" + File.separator;
-    private MediaPlayer mediaPlayer;
-    
-=======
-public class MediaPlayerGUI extends Application {
-
     private String directory;
+    private MediaPlayer mediaPlayer;
 
->>>>>>> origin/WIP
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -91,22 +83,14 @@ public class MediaPlayerGUI extends Application {
         skipBackward.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons" + File.separator + "fastBackward.png"))));
 
         Button playButton = new Button();
-<<<<<<< HEAD
         playButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "playButton.png"))));
         
         Button pauseButton = new Button();
         pauseButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "pauseButton.png"))));
         pauseButton.setVisible(false);
         
-=======
         playButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons" + File.separator + "playButton.png"))));
-        playButton.setOnAction(e -> {
-            Media media = new Media(new File(lv.getSelectionModel().getSelectedItem().toString()).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
-        });
 
->>>>>>> origin/WIP
         Button skipForward = new Button();
         Image skipImage = new Image(new FileInputStream("mediaPlayerButtons" + File.separator + "fastForward.png"));
         skipForward.setGraphic(new ImageView(skipImage));
@@ -120,18 +104,17 @@ public class MediaPlayerGUI extends Application {
         for (Button b : buttonList) {
             b.setPadding(Insets.EMPTY);
         }
-<<<<<<< HEAD
         
         playButton.setOnAction(e ->{
             pauseButton.setVisible(true);
             playButton.setVisible(false);
-//            Media media = new Media(new File(lv.getSelectionModel().getSelectedItem().toString()).toURI().toString());
-//            MediaPlayer mediaPlayer = new MediaPlayer(media);
-//            mediaPlayer.play();
+            Media media = new Media(new File(lv.getSelectionModel().getSelectedItem().toString()).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.play();
         });
         
         pauseButton.setOnAction(e->{
-//            mediaPlayer.pause();
+            mediaPlayer.pause();
             playButton.setVisible(true);
             pauseButton.setVisible(false);
     });
@@ -146,20 +129,12 @@ public class MediaPlayerGUI extends Application {
            Media media = new Media(new File(lv.getItems().get(index).toString()).toURI().toString());
         });
         
-        mainPane.add(skipBackward, 0, 0);
-        mainPane.add(playButton, 1, 0);
-        mainPane.add(pauseButton, 1, 0);
-        mainPane.add(skipForward, 2, 0);
-        
-        Scene scene = new Scene(mainPane, 600,300);
-=======
-
         mainPane.add(skipBackward, 0, 1);
         mainPane.add(playButton, 1, 1);
+        mainPane.add(pauseButton, 1, 1);
         mainPane.add(skipForward, 2, 1);
-
-        Scene scene = new Scene(mainPane, 600, 300);
->>>>>>> origin/WIP
+        
+        Scene scene = new Scene(mainPane, 600,300);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Media Player");
