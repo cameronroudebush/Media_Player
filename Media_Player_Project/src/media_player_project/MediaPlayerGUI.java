@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +29,7 @@ import javax.swing.JFrame;
 public class MediaPlayerGUI extends Application{
     
     private String directory = "C:" + File.separator;
+    private MediaPlayer mediaPlayer;
     
     public static void main(String[] args) {
         Application.launch(args);
@@ -66,11 +69,10 @@ public class MediaPlayerGUI extends Application{
         
         Button playButton = new Button();
         playButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "playButton.png"))));
-        playButton.setOnAction(e ->{
-            Media media = new Media(new File(lv.getSelectionModel().getSelectedItem().toString()).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
-        });
+        
+        Button pauseButton = new Button();
+        pauseButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "pauseButton.png"))));
+        pauseButton.setVisible(false);
         
         Button skipForward = new Button();
         Image skipImage = new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "fastForward.png"));
@@ -80,16 +82,40 @@ public class MediaPlayerGUI extends Application{
         ArrayList<Button> buttonList= new ArrayList<>();
         buttonList.add(skipForward);
         buttonList.add(playButton);
+        buttonList.add(pauseButton);
         buttonList.add(skipBackward);
         
         for(Button b : buttonList){
             b.setPadding(Insets.EMPTY);
         }
         
-//        playButton.setOnAction(new buttonEvent());
+        playButton.setOnAction(e ->{
+            pauseButton.setVisible(true);
+            playButton.setVisible(false);
+//            Media media = new Media(new File(lv.getSelectionModel().getSelectedItem().toString()).toURI().toString());
+//            MediaPlayer mediaPlayer = new MediaPlayer(media);
+//            mediaPlayer.play();
+        });
+        
+        pauseButton.setOnAction(e->{
+//            mediaPlayer.pause();
+            playButton.setVisible(true);
+            pauseButton.setVisible(false);
+    });
+        
+        skipForward.setOnAction(e->{
+            int index = fileList.indexOf(mediaPlayer.getMedia()) + 1;
+            Media media = new Media(new File(lv.getItems().get(index).toString()).toURI().toString());
+        });
+        
+        skipBackward.setOnAction(e->{
+           int index = fileList.indexOf(mediaPlayer.getMedia()) - 1;
+           Media media = new Media(new File(lv.getItems().get(index).toString()).toURI().toString());
+        });
         
         mainPane.add(skipBackward, 0, 0);
         mainPane.add(playButton, 1, 0);
+        mainPane.add(pauseButton, 1, 0);
         mainPane.add(skipForward, 2, 0);
         
         Scene scene = new Scene(mainPane, 600,300);
