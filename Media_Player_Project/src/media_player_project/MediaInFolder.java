@@ -4,27 +4,29 @@ import java.io.File;
 
 public class MediaInFolder {
     private File folder;
-    private File[] listOfFiles;
+    private String[] listOfFiles;
 
     public MediaInFolder(String folderDirectory) {
         File folder = new File(folderDirectory);
         this.folder = folder;
-        this.listOfFiles = this.folder.listFiles();
+        File[] list = this.folder.listFiles();
+        listOfFiles = new String[list.length];
+        for (int i = 0; i < list.length; i++){
+            listOfFiles[i] = list[i].toString().replace(folderDirectory, "");
+        }
     }
 
-    public File[] getListOfFiles() {
+    public String[] getListOfFiles() {
         return listOfFiles;
     }
 
-    public File getFolder() {
-        return folder;
-    }
-
-    public void setFolder(File folder) {
+    public void setFolder(String folderDirectory) {
+        File folder = new File(folderDirectory);
         this.folder = folder;
-    }
-
-    public void setListOfFiles(File[] listOfFiles) {
-        this.listOfFiles = listOfFiles;
+        File[] list = this.folder.listFiles();
+        listOfFiles = new String[list.length];
+        for (int i = 0; i < list.length; i++){
+            listOfFiles[i] = list[i].toString().replace(folderDirectory, "");
+        }
     }
 }

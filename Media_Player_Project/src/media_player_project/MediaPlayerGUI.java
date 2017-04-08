@@ -3,7 +3,11 @@ package media_player_project;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.util.Arrays;
+>>>>>>> origin/WIP
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
