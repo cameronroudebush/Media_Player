@@ -118,12 +118,12 @@ public class MediaPlayerGUI extends Application{
             pauseButton.setVisible(true);
             playButton.setVisible(false);
             Media media = new Media(new File(lv.getSelectionModel().getSelectedItem().toString()).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
+            this.mediaPlayer = new MediaPlayer(media);
+            this.mediaPlayer.play();
         });
         
         pauseButton.setOnAction(e->{
-            mediaPlayer.pause();
+            this.mediaPlayer.pause();
             playButton.setVisible(true);
             pauseButton.setVisible(false);
     });
