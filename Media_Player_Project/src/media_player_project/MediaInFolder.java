@@ -7,7 +7,7 @@ public class MediaInFolder {
     private String[] listOfFiles;
 
     public MediaInFolder(String folderDirectory) {
-        File folder = new File(folderDirectory);
+        File folder = new File(folderDirectory + File.separator);
         this.folder = folder;
         File[] list = this.folder.listFiles();
         listOfFiles = new String[list.length];

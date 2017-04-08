@@ -19,6 +19,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 /**
  *
@@ -30,6 +32,8 @@ public class MediaPlayerGUI extends Application{
     private static ObservableList fileList = FXCollections.observableArrayList(files.getListOfFiles());
     private static ListView<String> lv = new ListView<>(fileList);
 
+    private String directory = "C:" + File.separator;
+    
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -39,12 +43,36 @@ public class MediaPlayerGUI extends Application{
         GridPane mainPane = new GridPane();
         mainPane.setHgap(20);
         mainPane.setVgap(20);
+
+        mainPane.setPadding(new Insets(10, 5, 5, 10)); // top, , ,left
         
+<<<<<<< HEAD
         mainPane.setPadding(new Insets(10,5,5,10)); // top, , ,left
         
         
+=======
+        MediaInFolder files = new MediaInFolder(this.directory);
+        ObservableList fileList = FXCollections.observableArrayList(files.getListOfFiles());
+        ListView lv = new ListView<>(fileList);
+>>>>>>> origin/WIP
         lv.setEditable(false);
-        mainPane.add(lv, 0, 1,3,1);
+        mainPane.add(lv, 0, 2,6,1);
+        
+                Button browse = new Button("Browse");
+        mainPane.add(browse, 0, 1, 2, 1);
+        browse.setOnAction(e -> {
+                JFrame mainFrame = new JFrame();
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                fileChooser.setAcceptAllFileFilterUsed(false);
+                int returnVal = fileChooser.showOpenDialog(mainFrame);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    this.directory = fileChooser.getSelectedFile().toString();
+                    files.setFolder(directory);
+                    fileList.clear();
+                    fileList.addAll((Object[]) files.getListOfFiles());
+                }
+        });
         
         Button skipBackward = new Button();
         skipBackward.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "fastBackward.png"))));
@@ -72,12 +100,15 @@ public class MediaPlayerGUI extends Application{
         mainPane.add(skipBackward, 0, 0);
         mainPane.add(playButton, 1, 0);
         mainPane.add(skipForward, 2, 0);
-
         
         Scene scene = new Scene(mainPane, 600,300);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Media Player");
         primaryStage.show();
+        primaryStage.setOnCloseRequest(e ->{
+            System.exit(0);
+        });
     }
 
     private static class buttonEvent implements EventHandler<ActionEvent> {
