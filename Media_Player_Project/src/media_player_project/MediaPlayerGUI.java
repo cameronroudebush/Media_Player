@@ -3,14 +3,12 @@ package media_player_project;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
-import java.util.Arrays;
->>>>>>> origin/WIP
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,6 +23,8 @@ import javafx.stage.Stage;
  * @author Yes
  */
 public class MediaPlayerGUI extends Application{
+    
+    ListView lv;
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -76,6 +76,17 @@ public class MediaPlayerGUI extends Application{
         primaryStage.setScene(scene);
         primaryStage.setTitle("Media Player");
         primaryStage.show();
+    }
+
+    private static class buttonEvent implements EventHandler<ActionEvent> {
+
+        public buttonEvent() {
+        }
+
+        @Override
+        public void handle(ActionEvent event) {
+            
+        }
     }
     
 }
