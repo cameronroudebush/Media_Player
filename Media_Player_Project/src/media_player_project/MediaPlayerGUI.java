@@ -58,7 +58,7 @@ public class MediaPlayerGUI extends Application{
         lv.setEditable(false);
         mainPane.add(lv, 0, 2,6,1);
         
-                Button browse = new Button("Browse");
+        Button browse = new Button("Browse");
         mainPane.add(browse, 0, 1, 2, 1);
         browse.setOnAction(e -> {
                 JFrame mainFrame = new JFrame();
@@ -79,7 +79,7 @@ public class MediaPlayerGUI extends Application{
         
         Button playButton = new Button();
         playButton.setGraphic(new ImageView(new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "playButton.png"))));
-        
+
         
         Button skipForward = new Button();
         Image skipImage = new Image(new FileInputStream("mediaPlayerButtons"+ File.separator + "fastForward.png"));
