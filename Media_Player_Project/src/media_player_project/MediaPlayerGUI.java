@@ -26,7 +26,9 @@ import javafx.stage.Stage;
  */
 public class MediaPlayerGUI extends Application{
     
-    private static ListView lv;
+    private static MediaInFolder files = new MediaInFolder("AudioFiles" + File.separator);
+    private static ObservableList fileList = FXCollections.observableArrayList(files.getListOfFiles());
+    private static ListView<String> lv = new ListView<>(fileList);
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -40,9 +42,7 @@ public class MediaPlayerGUI extends Application{
         
         mainPane.setPadding(new Insets(10,5,5,10)); // top, , ,left
         
-        MediaInFolder files = new MediaInFolder("AudioFiles" + File.separator);
-        ObservableList fileList = FXCollections.observableArrayList(files.getListOfFiles());
-        ListView lv = new ListView<>(fileList);
+        
         lv.setEditable(false);
         mainPane.add(lv, 0, 1,3,1);
         
@@ -87,7 +87,7 @@ public class MediaPlayerGUI extends Application{
 
         @Override
         public void handle(ActionEvent event) {
-            Media song = new Media(new File(lv.getSelectionModel().getSelectedItem().toString()).toURI().toString());
+            Media song = new Media(new File(lv.getSelectionModel().getSelectedItem()).toURI().toString());
             
             String bip = "dumbSound.wav";
             Media hit = new Media(new File(bip).toURI().toString());
